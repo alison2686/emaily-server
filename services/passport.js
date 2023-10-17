@@ -5,6 +5,11 @@ const keys = require('../config/keys');
 
 const User = mongoose.model('users');
 
+passport.serializeUser((user, done) => {
+  // user.id is the id in the Mongo database, not the googleId
+  done(null, user.id);
+});
+
 // creates a new instance of GoogleStrategy, pass in configuration
 passport.use(
   new GoogleStrategy(
@@ -14,6 +19,7 @@ passport.use(
       callbackURL: '/auth/google/callback',
     },
     (accessToken, refreshToken, profile, done) => {
+      // create new user or collect existing one
       // returns a promise, later on will refactor
       User.findOne({ googleId: profile.id }).then((existingUser) => {
         if (existingUser) {
