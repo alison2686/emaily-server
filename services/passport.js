@@ -10,6 +10,12 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
+passport.deserializeUser((id, done) => {
+  User.findById(id).then((user) => {
+    done(null, user);
+  });
+});
+
 // creates a new instance of GoogleStrategy, pass in configuration
 passport.use(
   new GoogleStrategy(
