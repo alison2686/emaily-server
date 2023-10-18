@@ -1,12 +1,24 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
+const passpprt = require('passport');
 const keys = require('./config/keys');
+const passport = require('passport');
 require('./models/User');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI);
 
 const app = express();
+
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000, // automatically expire in 30 days in milliseconds
+    keys: [keys.cookieKey], // encrypt cookie
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 require('./routes/authRoutes')(app);
 
