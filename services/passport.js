@@ -23,6 +23,7 @@ passport.use(
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
       callbackURL: '/auth/google/callback',
+      proxy: true, // trust proxies, fixes http vs https callback issue
     },
     (accessToken, refreshToken, profile, done) => {
       // create new user or collect existing one
