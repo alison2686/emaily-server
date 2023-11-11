@@ -15,6 +15,9 @@ const LandingPage = () => {
           collect feedback. It is a full-stack application built with React,
           Node.js, Express and MongoDB.
         </p>
+        <a href='/auth/google' className='flex justify-center items-center p-4'>
+          Sign In with Google
+        </a>
       </main>
       <footer className='text-center p-4 bg-blue-100 border-t border-blue-200'>
         <p className='text-blue-600'>
